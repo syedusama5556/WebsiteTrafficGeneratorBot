@@ -1,14 +1,10 @@
-<h1 align="center">Bot
+<h1 align="center">Website Traffic Generator Bot
 
 </h1>
 <p align="center">An open-source Unlimited Website Traffic Generator And YouTube View Generator.</p><br>
 
 
-###############  Coded by      : tuhin1729 ##############<br>
-##############  Instagram id   : www.instagram.com/tuhin1729 ##############<br>
-##############  Github         : www.github.com/tuhin1729 ##############<br>
-############## YouTube Channel : https://bit.ly/TuhinTheHacker ##############<br>
-
+###############  Coded by      : syedusama5556 ##############<br>
 
 
 #### By Changing the name, You won't be a script developer...
@@ -36,33 +32,9 @@
 
 **Notice:** 
 
-Installation Of Geckodriver:
-```
-For 32 Bit OS:
-
-Download Geckodriver From here: https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux32.tar.gz
-Open terminal and go to the forder where you installed Geckodriver
-Type These:
- tar -xvzf geckodriver*
- chmod +x geckodriver 
- mv -v geckodriver /usr/local/bin/
-```
-
-
-```
-For 64 Bit OS:
-
-Download Geckodriver From here: https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
-Open terminal and go to the forder where you installed Geckodriver
-Type These:
- tar -xvzf geckodriver*
- chmod +x geckodriver
- mv -v geckodriver /usr/local/bin/
-```
-
 To use the Bot type the following commands in Terminal:
 ```
-git clone https://github.com/tuhin1729/Bot.git
+git clone https://github.com/syedusama5556/WebsiteTrafficGeneratorBot.git
 cd Bot
 python Bot.py
 ```
@@ -72,9 +44,6 @@ python Bot.py
 
 Feel Free To Open An Issue...
 
-```
-                 Instagram id: @tuhin1729
-       YouTube Channel : https://bit.ly/TuhinTheHacker
 ```
 
 
