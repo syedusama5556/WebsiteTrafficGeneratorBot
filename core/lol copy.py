@@ -1,4 +1,5 @@
 import random
+from typing import KeysView
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -6,6 +7,13 @@ from selenium.webdriver import Firefox, FirefoxOptions
 from webdriver_manager.firefox import GeckoDriverManager
 import threading
 import time
+from selenium import webdriver
+
+from selenium.webdriver.common.proxy import *
+from selenium.webdriver.firefox.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.action_chains import ActionChains
+
 
 count = 1200
 color1 = ["\033[1;31;40m", "\033[1;32;40m", "\033[1;33;40m",
@@ -54,19 +62,38 @@ def req(proxy_url, target_url, timeo, stay_time):
             random_index = random.randint(0, len(iplist) - 1)
 
             PROXY = iplist[index]+":"+portlist[index]
-            print("\033[1;32;40mTrying From IP" + color() + str(PROXY))
-            print("\033[1;32;40mTrying From URL" + color() + str(proxy_url))
-            webdriver.DesiredCapabilities.FIREFOX['proxy'] = {
-                "httpProxy": PROXY, "sslProxy": PROXY, "proxyType": "MANUAL"}
-            options = FirefoxOptions()
-            options.add_argument('--proxy-server={}'.format(PROXY))
-            driver = Firefox(options=options, executable_path=GeckoDriverManager().install())
+            print("\033[1;32;40mTrying From IP " + color() + str(PROXY))
+            print("\033[1;32;40mTrying From URL " + color() + str(proxy_url))
+            chrome_options = webdriver.ChromeOptions()
+            # chrome_options.add_argument('--headless')
+            # chrome_options.add_argument('--no-sandbox')
+            # chrome_options.add_argument('--disable-dev-shm-usage')
+            chrome_options.add_argument('--proxy-server={}'.format(PROXY))
+
+            driver = webdriver.Chrome(options=chrome_options,executable_path=ChromeDriverManager().install())
+            # driver.implicitly_wait(3)
             driver.set_page_load_timeout(timeo)
             driver.get(target_url)
+            # Find the element to scroll
+            element = driver.find_element_by_css_selector("a[class='textcolor']")
+
+            # Create an instance of the ActionChains class
+            actions = ActionChains(driver)
+
+            # Move the mouse to the element
+            actions.move_to_element(element)
+
+            # Scroll down by sending the "SPACE" key to the element
+            for i in range(10):
+                time.sleep(1)
+                actions.send_keys(KeysView.SPACE)
+
+            # Perform the actions
+            actions.perform()
             time.sleep(stay_time)
             driver.close()
         except Exception as e:
-            driver.close()
+           print("failed")
 
 
 def run_threads(target, timeout, stay, urllist, num_threads):
@@ -87,13 +114,14 @@ def run_threads(target, timeout, stay, urllist, num_threads):
 if __name__ == '__main__':
     banner()
     target = "https://rembg.co/"
+    # target = "https://rembg.co/blogdetailpage.php?id=1"
     timeout = int(100)
-    stay = int(50)
-    # urllist = ["https://www.sslproxies.org", "https://us-proxy.org", "https://free-proxy-list.net/uk-proxy.html",
-    #            "https://free-proxy-list.net/anonymous-proxy.html", "https://free-proxy-list.net", "https://www.socks-proxy.net"]
+    stay = int(20)
+    urllist = ["https://www.sslproxies.org", "https://us-proxy.org", "https://free-proxy-list.net/uk-proxy.html",
+               "https://free-proxy-list.net/anonymous-proxy.html", "https://free-proxy-list.net", "https://www.socks-proxy.net"]
     
-    urllist = [ "https://free-proxy-list.net"]
-    num_threads = 4
+    # urllist = [ "https://free-proxy-list.net"]
+    num_threads = 20
     run_threads(target, timeout, stay, urllist, num_threads)
     print("\033[1;32;40mSleeping For 10 Seconds")
     time.sleep(10)
